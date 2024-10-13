@@ -9,7 +9,7 @@ export default function UserFilms() {
   const { handleLoadFilms } = useFilms();
   const { userFilms, token } = useUsers();
   useEffect(() => {
-    handleLoadFilms;
+    handleLoadFilms();
   }, [handleLoadFilms]);
   const films = userFilms;
   return (
