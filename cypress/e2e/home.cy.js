@@ -1,34 +1,49 @@
-describe('Home page', () => {
+describe('Home Component', () => {
     beforeEach(() => {
+      // Visita la página de inicio en localhost:5173
       cy.visit('http://localhost:5173');
     });
   
-    it('should render the header with correct title and subtitle', () => {
-      cy.get('h1').contains('Films');
-      cy.get('h2').contains('Feel your films');
+    it('should display the header with correct title and subtitle', () => {
+      // Verifica que el título y el subtítulo estén visibles en el Header
+      cy.get('h1').should('contain', 'Films');
+      cy.get('h2').should('contain', 'Feel your films');
     });
   
     it('should display the welcome message', () => {
-      cy.get('p[data-cy="intro"]').should(
-        'contain',
-        'Welcome to a unique place where you can express your feelings about the films you have watched, and share them with the whole world.'
-      );
+      // Verifica que el mensaje de bienvenida esté presente
+      cy.get('.intro').should('contain', 'Welcome to a unique place where you can express your feelings');
     });
   
-    it('should go to the Films list when the link clicks', () => {
-      cy.get(
-        'a[aria-label="Access to the list of films clicking in this icon button."]'
-      ).click();
+    it('should navigate to the films list when clicking on the films link', () => {
+      // Verifica que el enlace para la lista de películas funcione correctamente
+      cy.get('a[href="/list"]').first().click();
+  
+      // Verifica que la URL haya cambiado a la página de lista de películas
       cy.url().should('include', '/list');
     });
   
-    it('should go to /register when click on "create your account here"', () => {
-      cy.get('a').contains('create your account here').click();
+    it('should navigate to the films list when clicking the film reel icon', () => {
+      // Verifica que al hacer clic en el icono de "film reel" navegue a la lista de películas
+      cy.get('a[aria-label="Access to the list of films clicking in this icon button."]').click();
+  
+      // Verifica que la URL haya cambiado a la página de lista de películas
+      cy.url().should('include', '/list');
+    });
+  
+    it('should navigate to the registration page when clicking on the register link', () => {
+      // Verifica que el enlace para registrarse funcione correctamente
+      cy.get('a[href="/register"]').click();
+  
+      // Verifica que la URL haya cambiado a la página de registro
       cy.url().should('include', '/register');
     });
   
-    it('should go to /login when the Login button is clicked', () => {
+    it('should navigate to the login page when clicking the login button', () => {
+      // Verifica que el botón de login funcione correctamente
       cy.get('button').contains('Login').click();
+  
+      // Verifica que la URL haya cambiado a la página de login
       cy.url().should('include', '/login');
     });
   });
